@@ -1,0 +1,83 @@
+{% extends "layouts/base1.html" %}
+
+{% block title %} Login {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="page-inner mt-5">
+    <div class="page-header mt-5">
+        <div class="container">
+            <div class="content">
+                <div class="page-inner">
+                    
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">
+    
+                                        
+                                        <span>
+                                            Enter ISBN to search for book
+                                        </span>
+    
+                                    </div>
+                                </div>
+    
+                                <form method="post" action="/showBook/">
+    
+                                    {% csrf_token %}
+    
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-4">
+    
+                                               
+    
+                                                <div class="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="icon-lock"></i>
+                                                            </span>
+                                                        </div>
+                                                        {{ form.ISBN }}
+                                                    </div>
+                                                </div>
+                                                
+    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-action">
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                        &nbsp; &nbsp;
+                                        
+                                    </div>
+    
+                                </form>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                    
+
+            
+        
+      
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+
+{% endblock javascripts %}

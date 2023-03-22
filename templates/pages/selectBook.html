@@ -1,0 +1,138 @@
+{% extends "layouts/base1.html" %}
+
+{% block title %} Login {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+    .cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: 37px auto 0;
+  width: calc(280px * 4);
+  height: calc(280px * 4);
+}
+
+.card {
+  box-shadow: 0 3px 10px 0 #aaa;
+  cursor: pointer;
+  height: 280px;
+  position: relative;
+  width: 243px;
+}
+
+.card h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card.visited {
+  box-shadow: 0 3px 10px 2px #444;
+}
+
+@media (max-width: 1100px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+    width: calc(280px * 2);
+  }
+  .card {
+    margin: 0 auto 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards {
+    display: block;
+    width: 100vw;
+  }
+  .card {
+    margin: 0 auto 2rem;
+  }
+}
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="page-inner mt-5">
+    <div class="page-header mt-5">
+        <div class="container">
+            
+            <div class="content">
+                <h8>SELECT BOOKS FROM FOLLOWING</h8>
+                    
+                
+                <div class="page-inner text-center">
+                    
+                    
+                    
+                    <div class="row">
+                        {% for n in books %}
+                            <div class="card">
+                                <img src={{n.imageLinks}} alt="..." class="card-img-top">
+                                <div class="card-body">
+                                <h2 class="card-title">{{n.title}}</h2>
+                                {% for i in n.authors %}
+                                    <h3>{{i}},&nbsp;</h3>
+                                {% endfor %}
+                                <p>
+                                    Page Count : {{ n.pageCount}} 
+                                </p>
+                                <p>
+                                    Rating : {{n.averageRating}}
+                                </p>
+                                <button onclick="func('{{forloop.counter}}')"  class="btn btn-success">Add This</button>
+                                
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        
+                        
+                            
+                                
+                                
+                                
+                                
+                                
+                        
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+<script>
+    async function func(a) {
+        console.log(a)
+        let data = "{{books|safe}}"
+        data=data.replace(/'/g, '"' )
+       
+        data = JSON.parse(data)
+
+        $.ajax({
+            url: '/addBook/',
+            type: 'GET',
+            data:{
+                'data': JSON.stringify(data),
+                'index': a-1
+            },
+            success: function (res) {
+                if(res.success){
+                  window.location.href='/'
+                }
+                console.log(res)
+            }
+        })
+    }
+    
+</script>
+
+{% endblock javascripts %}
+
+
